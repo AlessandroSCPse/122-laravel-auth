@@ -10,6 +10,7 @@
                 <th>Title</th>
                 <th>Slug</th>
                 <th>Created at</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
@@ -20,6 +21,12 @@
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->slug }}</td>
                     <td>{{ $post->created_at }}</td>
+
+                    <td>
+                        <div>
+                            <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">View</a>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
