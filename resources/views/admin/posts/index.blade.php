@@ -26,6 +26,19 @@
                         <div>
                             <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">View</a>
                         </div>
+
+                        <div>
+                            <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}">Edit</a>
+                        </div>
+
+                        <div>
+                            <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach
