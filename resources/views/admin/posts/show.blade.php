@@ -4,6 +4,10 @@
     <h2>{{ $post->title }}</h2>
 
     <div>
+        <strong>ID</strong>: {{ $post->id }}
+    </div>
+
+    <div>
         <strong>Slug</strong>: {{ $post->slug }}
     </div>
 
