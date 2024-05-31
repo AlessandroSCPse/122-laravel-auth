@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -39,6 +40,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate(
+            [
+                'title' => 'required|min:5|max:150|unique:posts,title',
+                'content' => 'nullable|min:10'
+            ]
+        );
+
         $formData = $request->all();
         // $formData['slug'] = Str::slug($formData['title'], '-');
         // dd($formData);
@@ -82,6 +90,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $validated = $request->validate(
+            [
+                'title' => [
+                    'required',
+                    'min:5',
+                    'max:150',
+                    // 'unique:posts,title'
+                    Rule::unique('posts')->ignore($post)
+                ],
+                'content' => 'nullable|min:10'
+            ]
+        );
+
+        // Utilizzo ancora il validator
+
         $formData = $request->all();
         // $formData['slug'] = Str::slug($formData['title'], '-');
         $post->slug = Str::slug($formData['title'], '-');
