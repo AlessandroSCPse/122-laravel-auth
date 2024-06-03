@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+    @include('partials.flash-messages')
+
     <h1>Tutti i post</h1>
 
     <table class="table table-striped">

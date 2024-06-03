@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+    @include('partials.flash-messages')
+
     <h2>{{ $post->title }}</h2>
 
     <div>

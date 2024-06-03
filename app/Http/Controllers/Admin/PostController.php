@@ -56,7 +56,9 @@ class PostController extends Controller
         $newPost->slug = Str::slug($newPost->title, '-');
         $newPost->save();
 
-        return redirect()->route('admin.posts.show', ['post' => $newPost->slug]);
+        // session()->flash('message', $newPost->title . ' successfully created.');
+
+        return redirect()->route('admin.posts.show', ['post' => $newPost->slug])->with('message', $newPost->title . ' successfully created.');
     }
 
     /**
@@ -110,7 +112,7 @@ class PostController extends Controller
         $post->slug = Str::slug($formData['title'], '-');
         $post->update($formData);
 
-        return redirect()->route('admin.posts.show', ['post' => $post->slug]);
+        return redirect()->route('admin.posts.show', ['post' => $post->slug])->with('message', $post->title . ' successfully updated.');
     }
 
     /**
@@ -123,6 +125,6 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('message', $post->title . ' successfully deleted.');
     }
 }
