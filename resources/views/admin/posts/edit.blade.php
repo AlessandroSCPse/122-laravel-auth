@@ -13,7 +13,7 @@
         </div>
     @endif
     
-    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="POST">
+    <form action="{{ route('admin.posts.update', ['post' => $post->slug]) }}" method="POST">
         @csrf
         @method('PUT')
 

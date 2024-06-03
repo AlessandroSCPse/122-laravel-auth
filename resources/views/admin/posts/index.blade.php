@@ -24,15 +24,15 @@
 
                     <td>
                         <div>
-                            <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">View</a>
+                            <a href="{{ route('admin.posts.show', ['post' => $post->slug]) }}">View</a>
                         </div>
 
                         <div>
-                            <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}">Edit</a>
+                            <a href="{{ route('admin.posts.edit', ['post' => $post->slug]) }}">Edit</a>
                         </div>
 
                         <div>
-                            <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="POST">
+                            <form action="{{ route('admin.posts.destroy', ['post' => $post->slug]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
 

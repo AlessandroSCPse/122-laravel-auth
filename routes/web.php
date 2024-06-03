@@ -27,7 +27,9 @@ Route::middleware(['auth', 'verified'])
 ->group(function() {
     // Le varie rotte di amministrazione
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('posts', PostController::class);
+    Route::resource('posts', PostController::class)->parameters([
+        'posts' => 'post:slug'
+    ]);
 });
 
 Route::middleware('auth')->group(function () {

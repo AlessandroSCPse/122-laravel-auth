@@ -56,7 +56,7 @@ class PostController extends Controller
         $newPost->slug = Str::slug($newPost->title, '-');
         $newPost->save();
 
-        return redirect()->route('admin.posts.show', ['post' => $newPost->id]);
+        return redirect()->route('admin.posts.show', ['post' => $newPost->slug]);
     }
 
     /**
@@ -110,7 +110,7 @@ class PostController extends Controller
         $post->slug = Str::slug($formData['title'], '-');
         $post->update($formData);
 
-        return redirect()->route('admin.posts.show', ['post' => $post->id]);
+        return redirect()->route('admin.posts.show', ['post' => $post->slug]);
     }
 
     /**
