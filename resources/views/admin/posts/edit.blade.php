@@ -13,13 +13,26 @@
         </div>
     @endif
     
-    <form action="{{ route('admin.posts.update', ['post' => $post->slug]) }}" method="POST">
+    <form action="{{ route('admin.posts.update', ['post' => $post->slug]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="mb-3">
             <label for="title" class="form-label">Titolo</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="cover_image" class="form-label">Immagine</label>
+            <input class="form-control" type="file" id="cover_image" name="cover_image">
+            
+            @if ($post->cover_image)
+                <div>
+                    <img width="100" src="{{ asset('storage/' . $post->cover_image) }}" alt="{{ $post->title }}">
+                </div>
+            @else
+                <small>Nessuna immagine caricata</small>
+            @endif
         </div>
 
         <div class="mb-3">

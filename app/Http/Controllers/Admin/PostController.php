@@ -111,10 +111,22 @@ class PostController extends Controller
             ]
         );
 
-        // Utilizzo ancora il validator
-
         $formData = $request->all();
         // $formData['slug'] = Str::slug($formData['title'], '-');
+
+        // Se l'utente ha caricato una nuova immagine
+        if($request->hasFile('cover_image')) {
+            // Se avevo già un'immagine caricata la cancello
+            if($post->cover_image) {
+                Storage::delete($post->cover_image);
+            }
+
+            // Upload del file nella cartella pubblica
+            $img_path = Storage::disk('public')->put('post_images', $formData['cover_image']);
+            // Salvare nella colonna cover_image del db il path all'immagine caricata
+            $formData['cover_image'] = $img_path;
+        }
+
         $post->slug = Str::slug($formData['title'], '-');
         $post->update($formData);
 
