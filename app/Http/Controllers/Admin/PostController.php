@@ -44,7 +44,8 @@ class PostController extends Controller
         $validated = $request->validate(
             [
                 'title' => 'required|min:5|max:150|unique:posts,title',
-                'content' => 'nullable|min:10'
+                'content' => 'nullable|min:10',
+                'cover_image' => 'nullable|image|max:256'
             ]
         );
 
@@ -107,7 +108,8 @@ class PostController extends Controller
                     // 'unique:posts,title'
                     Rule::unique('posts')->ignore($post)
                 ],
-                'content' => 'nullable|min:10'
+                'content' => 'nullable|min:10',
+                'cover_image' => 'nullable|image|max:256'
             ]
         );
 
