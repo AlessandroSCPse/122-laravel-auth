@@ -21,6 +21,12 @@
         <strong>Updated at</strong>: {{ $post->updated_at }}
     </div>
 
+    @if ($post->cover_image)
+        <div>
+            <img src="{{ asset('storage/' . $post->cover_image) }}" alt="{{ $post->title }}">
+        </div>
+    @endif
+
     @if ($post->content)
         <p class="mt-5">{{ $post->content }}</p>
     @endif

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -48,15 +49,20 @@ class PostController extends Controller
         );
 
         $formData = $request->all();
-        // $formData['slug'] = Str::slug($formData['title'], '-');
-        // dd($formData);
+
+        // Solo se l'utente ha caricato la cover image
+        // if(isset($formData['cover_image'])) {
+        if($request->hasFile('cover_image')) {
+            // Upload del file nella cartella pubblica
+            $img_path = Storage::disk('public')->put('post_images', $formData['cover_image']);
+            // Salvare nella colonna cover_image del db il path all'immagine caricata
+            $formData['cover_image'] = $img_path;
+        }
 
         $newPost = new Post();
         $newPost->fill($formData);
         $newPost->slug = Str::slug($newPost->title, '-');
         $newPost->save();
-
-        // session()->flash('message', $newPost->title . ' successfully created.');
 
         return redirect()->route('admin.posts.show', ['post' => $newPost->slug])->with('message', $newPost->title . ' successfully created.');
     }
