@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Category;
 
 class PostController extends Controller
 {

@@ -14,6 +14,10 @@
     </div>
 
     <div>
+        <strong>Category</strong>: {{ $post->category ? $post->category->name : 'No category' }}
+    </div>
+
+    <div>
         <strong>Created at</strong>: {{ $post->created_at }}
     </div>
 
