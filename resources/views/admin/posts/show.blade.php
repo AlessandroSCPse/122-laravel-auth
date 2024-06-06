@@ -18,6 +18,17 @@
     </div>
 
     <div>
+        <strong>Tags</strong>:
+        @if (count($post->tags) > 0)
+            @foreach ($post->tags as $tag)
+                {{ $tag->name }}@if (!$loop->last),@endif
+            @endforeach
+        @else
+            none
+        @endif
+    </div>
+
+    <div>
         <strong>Created at</strong>: {{ $post->created_at }}
     </div>
 
