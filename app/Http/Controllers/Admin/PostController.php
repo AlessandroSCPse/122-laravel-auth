@@ -124,7 +124,8 @@ class PostController extends Controller
                 ],
                 'content' => 'nullable|min:10',
                 'cover_image' => 'nullable|image|max:256',
-                'category_id' => 'nullable|exists:categories,id'
+                'category_id' => 'nullable|exists:categories,id',
+                'tags' => 'nullable|exists:tags,id'
             ]
         );
 
