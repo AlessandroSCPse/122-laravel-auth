@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\PostsTableSeeder;
 use Database\Seeders\CategoriesTableSeeder;
+use Database\Seeders\TagsTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,7 +26,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             PostsTableSeeder::class,
-            CategoriesTableSeeder::class
+            CategoriesTableSeeder::class,
+            TagsTableSeeder::class
         ]);
     }
 }
