@@ -46,6 +46,26 @@
         </div>
 
         <div class="mb-3 mt-4">
+            <h5>Tags</h5>
+
+            @foreach ($tags as $tag)
+                <div class="form-check">
+                    @if ($errors->any())
+                        {{-- Se cis sono errori di validazione vuol dire che l'utente ha gia inviato il form quindi controllo l'old --}}
+                        <input class="form-check-input" @checked(in_array($tag->id, old('tags', []))) type="checkbox" name="tags[]" value="{{ $tag->id }}" id="tag-{{ $tag->id }}">
+                    @else
+                        {{-- Altrimenti vuol dire che stiamo caricando la pagina per la prima volta quindi controlliamo la presenza del tag nella collection che ci arriva dal db --}}
+                        <input class="form-check-input" @checked($post->tags->contains($tag)) type="checkbox" name="tags[]" value="{{ $tag->id }}" id="tag-{{ $tag->id }}">
+                    @endif
+                    
+                    <label class="form-check-label" for="tag-{{ $tag->id }}">
+                    {{ $tag->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="mb-3 mt-4">
             <label for="content" class="form-label">Contenuto</label>
             <textarea class="form-control" id="content" rows="15" name="content">{{ old('content', $post->content) }}</textarea>
         </div>

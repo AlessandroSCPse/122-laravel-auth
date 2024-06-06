@@ -33,7 +33,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -49,7 +50,8 @@ class PostController extends Controller
                 'title' => 'required|min:5|max:150|unique:posts,title',
                 'content' => 'nullable|min:10',
                 'cover_image' => 'nullable|image|max:256',
-                'category_id' => 'nullable|exists:categories,id'
+                'category_id' => 'nullable|exists:categories,id',
+                'tags' => 'nullable|exists:tags,id',
             ]
         );
 
@@ -69,6 +71,11 @@ class PostController extends Controller
         $newPost->slug = Str::slug($newPost->title, '-');
         $newPost->save();
 
+        // "Attaccare" i tags scelti dall'utente al post creato
+        if($request->has('tags')) {
+            $newPost->tags()->attach($formData['tags']);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $newPost->slug])->with('message', $newPost->title . ' successfully created.');
     }
 
@@ -79,7 +86,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-    {  
+    {
         return view('admin.posts.show', compact('post'));
     }
 
@@ -92,8 +99,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -138,6 +146,12 @@ class PostController extends Controller
 
         $post->slug = Str::slug($formData['title'], '-');
         $post->update($formData);
+
+        if($request->has('tags')) {
+            $post->tags()->sync($formData['tags']);
+        } else {
+            $post->tags()->detach();
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $post->slug])->with('message', $post->title . ' successfully updated.');
     }

@@ -37,6 +37,19 @@
         <div>
 
         <div class="mb-3 mt-4">
+            <h5>Tags</h5>
+
+            @foreach ($tags as $tag)
+                <div class="form-check">
+                    <input @checked(in_array($tag->id, old('tags', []))) class="form-check-input" type="checkbox" name="tags[]" value="{{ $tag->id }}" id="tag-{{ $tag->id }}">
+                    <label class="form-check-label" for="tag-{{ $tag->id }}">
+                    {{ $tag->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="mb-3 mt-4">
             <label for="content" class="form-label">Contenuto</label>
             <textarea class="form-control" id="content" rows="15" name="content">{{ old('content') }}</textarea>
         </div>
