@@ -18,4 +18,22 @@ class PostController extends Controller
             'results' => $posts
         ]);
     }
+
+    public function show($slug) {
+        $post = Post::where('slug', '=', $slug)->with('category', 'tags')->first();
+        
+        if($post) {
+            $data = [
+                'success' => true,
+                'post' => $post
+            ];
+        } else {
+            $data = [
+                'success' => false,
+                'error' => 'No post found with this slug'
+            ];
+        }
+
+        return response()->json($data);
+    }
 }
