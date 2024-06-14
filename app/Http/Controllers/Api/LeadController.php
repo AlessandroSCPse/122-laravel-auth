@@ -20,6 +20,10 @@ class LeadController extends Controller
             'email' => 'required|email',
             'message' => 'required',
             'accepted_tc' => 'required|boolean|accepted'
+        ],
+        [
+            'accepted_tc.required' => 'You must accept terms and conditions',
+            'accepted_tc.accepted' => 'You must accept terms and conditions'
         ]);
 
         // Se ci sono errori di validazione
