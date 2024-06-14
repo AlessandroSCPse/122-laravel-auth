@@ -16,9 +16,9 @@ use App\Http\Controllers\Admin\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
 // Route::get('admin/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 Route::middleware(['auth', 'verified'])
@@ -39,3 +39,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Se nessuna delle rotte sopra è utilizzabile mostra la pagina generica
+Route::get('{any?}', function () {
+    return view('guest.home');
+})->where('any', '.*');
