@@ -10,6 +10,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewPost;
 
 class PostController extends Controller
 {
@@ -75,6 +77,9 @@ class PostController extends Controller
         if($request->has('tags')) {
             $newPost->tags()->attach($formData['tags']);
         }
+
+        // Mandare una mail all'amministratore per notificare la creazione del nuovo post
+        Mail::to('admin@boolpress.com')->send(new NewPost($newPost));
 
         return redirect()->route('admin.posts.show', ['post' => $newPost->slug])->with('message', $newPost->title . ' successfully created.');
     }
