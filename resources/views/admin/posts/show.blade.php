@@ -15,6 +15,7 @@
 
     <div>
         <strong>Category</strong>: {{ $post->category ? $post->category->name : 'No category' }}
+        {{-- <strong>Category</strong>: {{ $post->category?->name }} --}}
     </div>
 
     <div>
